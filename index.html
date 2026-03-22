@@ -1,24 +1,80 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Tequila Stock – Build & Play</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <title>customsoftware — Beautiful sites that sell</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body{margin:0;font:20px/1.6 system-ui;display:grid;place-items:center;height:100vh;background:#111;color:#fff;text-align:center}
-    a{display:inline-block;margin:1rem 2rem;padding:.8rem 2rem;border:2px solid #08c;border-radius:12px;text-decoration:none;color:#08c;transition:.25s}
-    a:hover{background:#08c;color:#000;transform:translateY(-3px)}
-    h1{font-size:3rem;margin-bottom:0}
+    :root{
+      --accent:#007aff;
+      --dark:#111;
+      --light:#f5f5f7;
+      --txt:#1d1d1f;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:18px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--txt);background:var(--light);}
+    header{padding:7vh 5%;text-align:center}
+    header h1{font-size:3rem;font-weight:600;margin-bottom:.5rem}
+    header p{font-size:1.25rem;opacity:.8}
+    .cta{display:inline-block;margin-top:2rem;padding:.9rem 2.4rem;background:var(--accent);color:#fff;border-radius:42px;font-weight:600;text-decoration:none;transition:.25s}
+    .cta:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
+    section{max-width:980px;margin:12vh auto;padding:0 5%}
+    .grid{display:grid;gap:2.5rem}
+    @media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:#fff;border-radius:24px;padding:2rem;box-shadow:0 10px 18px rgba(0,0,0,.05);}
+    .card h3{margin-bottom:.8rem}
+    footer{padding:8vh 0;text-align:center;font-size:.9rem;opacity:.6}
+    footer a{color:inherit;text-decoration:none}
   </style>
 </head>
 <body>
-  <main>
-    <h1>Tequila Stock&nbsp;🍹</h1>
-    <p>Trading ✦ Web-building ✦ Fun-making</p>
-    <nav>
-      <a href="games/flappy.html">Play Flappy Bird</a>
-      <a href="games/snake.html">Play Snake</a>
-    </nav>
-  </main>
+  <header>
+    <h1>customsoftware</h1>
+    <p>Pixel-perfect websites & lightning-fast apps — built the way Apple would.</p>
+    <a class="cta" href="tel:+18589020389">Call now · (858) 902-0389</a>
+  </header>
+
+  <section>
+    <h2 style="text-align:center;margin-bottom:3rem;font-size:2rem">What we craft</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Custom Web Design</h3>
+        <p>Hand-coded, responsive &amp; accessible layouts that load in under 1 second.</p>
+      </div>
+      <div class="card">
+        <h3>E-commerce Stores</h3>
+        <p>Shopify, Woo or headless — frictionless checkout that converts visitors into buyers.</p>
+      </div>
+      <div class="card">
+        <h3>Interactive Demos</h3>
+        <p>We embed mini-games (see below) to prove our dev chops and wow your audience.</p>
+      </div>
+      <div class="card">
+        <h3>Landing-Page Sprints</h3>
+        <p>Launch a polished marketing page in a single week, copy &amp; SEO included.</p>
+      </div>
+      <div class="card">
+        <h3>Maintenance &amp; Hosting</h3>
+        <p>Zero-downtime deployments, CDN, weekly backups &amp; security updates.</p>
+      </div>
+      <div class="card">
+        <h3>Growth Analytics</h3>
+        <p>Integrated funnels &amp; A/B testing so every pixel works harder.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;padding:8vh 5%">
+    <h2 style="text-align:center;margin-bottom:3rem;font-size:2rem">Play our tech demos</h2>
+    <div class="grid">
+      <div class="card"><h3><a href="games/flappy.html">Flappy Bird →</a></h3></div>
+      <div class="card"><h3><a href="games/snake.html">Snake →</a></h3></div>
+      <div class="card"><h3><a href="#">Next game…</a></h3></div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 customsoftware · <a href="tel:+18589020389">(858) 902-0389</a>
+  </footer>
 </body>
 </html>
