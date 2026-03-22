@@ -33,4 +33,7 @@ nav a{color:var(--accent);text-decoration:none}
   <div class="card"><iframe loading="lazy" src="snake.html?v=1""  title="Snake"></iframe><h3>Snake</h3></div>
   <div class="card"><iframe loading="lazy" src="tetris.html?v=1"" title="Tetris"></iframe><h3>Tetris</h3></div>
 </div>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+  </script>
 </body></html>
