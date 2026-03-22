@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Snake – Tequila Stock</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{margin:0;display:flex;flex-direction:column;align-items:center;background:#222;color:#fff;font:18px monospace}
+    canvas{background:#000;margin-top:2rem}
+    a{color:#0f0;text-decoration:none;margin-top:1rem}
+  </style>
+</head>
+<body>
+<h1>Snake</h1>
+<canvas id="cv" width="400" height="400"></canvas>
+<p id="score">Score 0</p>
+<a href="../index.html">← Back home</a>
+<script>
+const c=document.getElementById('cv'),x=c.getContext('2d')
+const s=20,N=c.width/s
+let snake=[[10,10]],dir=[1,0],food=[15,10],score=0,go=true
+const rnd=()=>Math.floor(Math.random()*N)
+function place(){food=[rnd(),rnd()]}
+function step(){
+ if(!go)return
+ const h=[snake[0][0]+dir[0],snake[0][1]+dir[1]]
+ if(h[0]<0||h[1]<0||h[0]>=N||h[1]>=N||snake.some(([a,b])=>a===h[0]&&b===h[1])){go=false;return}
+ snake.unshift(h)
+ if(h[0]===food[0]&&h[1]===food[1]){score++;scoreEl.textContent='Score '+score;place()}
+ else snake.pop()
+}
+function draw(){
+ x.fillStyle='#000';x.fillRect(0,0,c.width,c.height)
+ x.fillStyle='#0f0';snake.forEach(([a,b])=>x.fillRect(a*s,b*s,s-2,s-2))
+ x.fillStyle='#f00';x.fillRect(food[0]*s,food[1]*s,s-2,s-2)
+}
+function loop(){step();draw();setTimeout(loop,100)}
+addEventListener('keydown',e=>{
+ if(e.key=='ArrowUp'   && dir[1]!=1 )dir=[0,-1]
+ if(e.key=='ArrowDown' && dir[1]!=-1)dir=[0,1 ]
+ if(e.key=='ArrowLeft' && dir[0]!=1 )dir=[-1,0]
+ if(e.key=='ArrowRight'&& dir[0]!=-1)dir=[1 ,0]
+ if(!go && e.key=='Enter'){snake=[[10,10]];dir=[1,0];score=0;go=true}
+})
+const scoreEl=document.getElementById('score');loop()
+</script>
+</body>
+</html>
