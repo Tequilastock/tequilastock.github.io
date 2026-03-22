@@ -18,11 +18,26 @@
     @media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)}}
     .card{background:#fff;border-radius:24px;padding:2rem;box-shadow:0 10px 18px rgba(0,0,0,.05);}
     .card h3{margin-bottom:.8rem}
-    /* -------- games -------- */
+
+    /* ------------ games ------------- */
     .games{display:flex;flex-wrap:wrap;justify-content:center;gap:3rem;margin-top:3rem}
-    .gameCard{background:#000;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.25);width:100%;max-width:360px}
+    .gameCard{
+      position:relative;
+      background:#000;border-radius:24px;overflow:hidden;
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+      width:100%;max-width:360px}
     .gameCard iframe{display:block;width:100%;height:auto;border:none}
-    /* -------- contact form -------- */
+    /* Tooltip */
+    .gameCard::after{
+      content:attr(data-tip);
+      position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
+      padding:.4rem .8rem;border-radius:12px;font-size:.75rem;
+      background:rgba(0,0,0,.8);color:#fff;opacity:0;pointer-events:none;
+      transition:opacity .25s}
+    .gameCard:hover::after,
+    .gameCard.touch-show::after{opacity:1}
+
+    /* ------------ contact form ------------- */
     .contact{background:#fff;border-radius:24px;padding:3rem;box-shadow:0 10px 25px rgba(0,0,0,.05);}
     form{display:grid;gap:1.4rem}
     input,textarea{font:inherit;padding:.9rem 1.2rem;border:2px solid #ccc;border-radius:12px;width:100%;}
@@ -40,7 +55,7 @@
     <a class="cta" href="tel:+18589020389">Call&nbsp;now · (858)&nbsp;902-0389</a>
   </header>
 
-  <!-- Services cards (unchanged) -->
+  <!-- Services cards -->
   <section>
     <h2 style="text-align:center;margin-bottom:3rem;font-size:2rem">What we craft</h2>
     <div class="grid">
@@ -53,16 +68,22 @@
     </div>
   </section>
 
-  <!-- Games embedded in responsive cards -->
+  <!-- Game demos -->
   <section style="text-align:center">
     <h2 style="font-size:2rem">Play our tech demos<br><small style="opacity:.7">— fully responsive —</small></h2>
     <div class="games">
-      <div class="gameCard"><iframe src="games/flappy.html" title="Flappy Bird demo"></iframe></div>
-      <div class="gameCard"><iframe src="games/snake.html"  title="Snake demo"></iframe></div>
+      <div class="gameCard" tabindex="0"
+           data-tip="Flappy Bird – tap/click or Space to flap, P to pause">
+        <iframe src="games/flappy.html" title="Flappy Bird demo"></iframe>
+      </div>
+      <div class="gameCard" tabindex="0"
+           data-tip="Snake – arrows to move, Reset button, P to pause">
+        <iframe src="games/snake.html" title="Snake demo"></iframe>
+      </div>
     </div>
   </section>
 
-  <!-- Contact section (unchanged) -->
+  <!-- Contact -->
   <section class="contact" id="contact">
     <h2 style="text-align:center;margin-bottom:2rem;font-size:2rem">Let’s build yours next</h2>
     <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT" method="POST">
@@ -79,5 +100,15 @@
   <footer>
     © 2026 customsoftware · <a href="tel:+18589020389">(858) 902-0389</a>
   </footer>
+
+  <!-- Mobile tap-to-reveal for tooltip -->
+  <script>
+    document.querySelectorAll('.gameCard').forEach(card=>{
+      card.addEventListener('click',()=>{
+        card.classList.toggle('touch-show');
+        setTimeout(()=>card.classList.remove('touch-show'),2500);
+      });
+    });
+  </script>
 </body>
 </html>
