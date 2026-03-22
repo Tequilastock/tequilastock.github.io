@@ -63,6 +63,7 @@
   <textarea name="message" rows="5" placeholder="Tell us about your project" required></textarea>
   <button type="submit">Send&nbsp;Message</button>  <input type="text" name="_gotcha" style="display:none">
 </form>
+    <div id="toast" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#28a745;color:#fff;padding:.8rem 1.6rem;border-radius:28px;font-size:.9rem;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:10000">Message sent ✓</div>
 <p style="margin-top:1rem;text-align:center;font-size:.85rem;opacity:.7">Prefer phone?
   <a href="tel:+18589020389">Call&nbsp;(858) 902-0389</a></p></section>
 
@@ -103,4 +104,17 @@ modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('a
     }
   });
 </script>
+<script>
+  const form=document.querySelector("form[action^="https://formspree.io"]");
+  const toast=document.getElementById("toast");
+  form.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const fd=new FormData(form);
+    try{
+      const r=await fetch(form.action,{method:"POST",body:fd,headers:{"Accept":"application/json"}});
+      if(r.ok){toast.style.display="block";setTimeout(()=>toast.style.display="none",3000);form.reset();}
+      else alert("There was an error. Try again.");
+    }catch{alert("Network error. Try again.");}
+  });
+  </script>
 </body></html>
