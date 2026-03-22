@@ -34,6 +34,7 @@
   <p>Pixel-perfect sites built so well they’re almost a game.</p>
   <a class="cta" href="tel:+18589020389">Call&nbsp;now · (858)&nbsp;902-0389</a>
     <a class="cta alt" href="https://calendly.com/customsoftware/15min" target="_blank" rel="noopener">Schedule a&nbsp;Call →</a>
+    <a class="cta alt" href="customsoftware-onepager.pdf?v=2" download>Download&nbsp;PDF ↧</a>
 </header>
 
 <!-- Services -->
@@ -80,7 +81,7 @@
     <div style="margin-top:2.5rem;display:flex;justify-content:center">
       <iframe
         title="customsoftware service area"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107721.80593476806!2d-117.26531412633898!3d32.824552352498914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbff3f53e57d09%3A0x6d2e0d6e1c4fba82!2sSan%20Diego%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"
+        src="https://maps.google.com/maps?q=4560%20Bond%20St%20San%20Diego%20CA&t=&z=15&ie=UTF8&iwloc=&output=embed"
         width="100%" height="300" style="border:0;border-radius:18px;box-shadow:0 4px 16px rgba(0,0,0,.12)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
@@ -155,4 +156,42 @@ modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('a
   });
   </script>
   <a id="wa" href="https://wa.me/18589020389" aria-label="WhatsApp chat" target="_blank" rel="noopener">💬</a>
+<style>
+    #exitWrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;align-items:center;justify-content:center}
+    #exitBox{max-width:360px;background:#fff;border-radius:20px;padding:2rem;text-align:center;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+    #exitBox h3{margin-top:0;color:#007aff}
+    #exitBox input{width:100%;padding:.7rem 1rem;border:2px solid #ccc;border-radius:12px;margin:1rem 0;font:inherit}
+    #exitBox button{padding:.7rem 2rem;border:none;border-radius:28px;background:#007aff;color:#fff;font-weight:600;cursor:pointer}
+    #exitClose{position:absolute;top:18px;right:22px;font-size:1.5rem;background:none;border:none;color:#fff;cursor:pointer}
+    #exitNo{display:block;margin-top:1rem;color:#007aff;background:none;border:none;font:inherit;cursor:pointer}
+  </style>
+
+  <div id="exitWrap">
+    <button id="exitClose" aria-label="close">×</button>
+    <div id="exitBox">
+      <h3>Before you go…</h3>
+      <p>Drop your e-mail and we’ll send<br>a free homepage teardown.</p>
+      <input id="exitEmail" type="email" placeholder="you.com" required>
+      <button id="exitSend">Send</button>
+      <button id="exitNo">No thanks</button>
+    </div>
+  </div>
+
+  <script>
+    /* exit-intent logic */
+    const exitSeen = document.cookie.includes("exitSeen=1");
+    const wrap = document.getElementById("exitWrap");
+    if (!exitSeen && matchMedia("(pointer:fine)").matches) {
+      document.addEventListener("mouseout", e=>{
+        if (e.clientY<=0) { wrap.style.display="flex"; document.cookie="exitSeen=1;max-age=2592000"; }
+      }, {once:true});
+    }
+    const close = ()=>wrap.style.display="none";
+    document.getElementById("exitClose").onclick = close;
+    document.getElementById("exitNo").onclick = close;
+    document.getElementById("exitSend").onclick = () => {
+      const email=document.getElementById("exitEmail").value.trim();
+      if(email){ alert("Thanks — we’ll be in touch!"); close(); }
+    };
+  </script>
 </body></html>
