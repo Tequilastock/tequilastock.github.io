@@ -2,42 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Flappy Bird – Tequila Stock</title>
+  <title>Flappy – customsoftware demo</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-    body{margin:0;display:flex;flex-direction:column;align-items:center;background:#70c5ce;font:18px monospace}
-    canvas{background:#70c5ce;border-bottom:2px solid #fff}
-    #msg{margin-top:1rem}
+    body{margin:0;display:flex;flex-direction:column;align-items:center;background:#70c5ce;font:17px monospace}
+    canvas{width:100%;max-width:320px;height:auto;display:block;background:#70c5ce;border-bottom:2px solid #fff}
+    #msg{margin-top:.8rem;text-align:center}
     a{color:#fff;text-decoration:none}
   </style>
 </head>
 <body>
-<canvas id="c" width="320" height="480"></canvas>
+<canvas id="c"></canvas>
 <p id="msg">Tap / click or press <kbd>Space</kbd></p>
 <script>
-const c=document.getElementById('c'),x=c.getContext('2d')
-const g=.5,gap=120,w=52,d=160
-let y=200,v=0,s=0,p=[],play=true
-function add(X){p.push({x:X,h:50+Math.random()*250})}
-function reset(){y=200;v=0;s=0;p=[];[0,1,2].forEach(i=>add(i*d+400));play=true}
+const W=320,H=480,c=document.getElementById('c');
+c.width=W;c.height=H;
+const ctx=c.getContext('2d'),g=.5,gap=120,pipeW=52,pipeGap=160;
+let y,v,score,pipes,playing;
+function addPipe(x){pipes.push({x,h:50+Math.random()*250});}
+function reset(){
+  y=200;v=0;score=0;pipes=[];
+  [0,1,2].forEach(i=>addPipe(i*pipeGap+400));
+  playing=true;document.getElementById('msg').textContent='Tap / click or press Space';
+}
 function draw(){
- x.clearRect(0,0,320,480)
- x.fillStyle='#ff0';x.fillRect(60,y,24,24)
- x.fillStyle='#090';p.forEach(o=>{x.fillRect(o.x,0,w,o.h);x.fillRect(o.x,o.h+gap,w,480)})
- x.fillStyle='#fff';x.fillText(s,150,40)
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#ff0';ctx.fillRect(60,y,24,24);
+  ctx.fillStyle='#090';
+  pipes.forEach(p=>{ctx.fillRect(p.x,0,pipeW,p.h);ctx.fillRect(p.x,p.h+gap,pipeW,H);});
+  ctx.fillStyle='#fff';ctx.fillText(score,150,40);
 }
-function step(){
- if(!play)return
- v+=g;y+=v;p.forEach(o=>o.x-=2)
- if(p[0].x<-w){p.shift();add(p[p.length-1].x+d);s++}
- const o=p[0],hitX=60+24>o.x&&60<o.x+w,hitY=y<o.h||y+24>o.h+gap
- if(y>456||hitX&&hitY){play=false;document.getElementById('msg').textContent='Game over—click to restart'}
+function update(){
+  if(!playing)return;
+  v+=g;y+=v;
+  pipes.forEach(p=>p.x-=2);
+  if(pipes[0].x<-pipeW){pipes.shift();addPipe(pipes.at(-1).x+pipeGap);score++;}
+  const p=pipes[0],hitX=84>p.x&&60<p.x+pipeW,hitY=y<p.h||y+24>p.h+gap;
+  if(y>H-24||hitX&&hitY){playing=false;document.getElementById('msg').textContent='Game over—click to restart';}
 }
-function loop(){step();draw();requestAnimationFrame(loop)}
-addEventListener('keydown',e=>e.code==='Space'&&(v=-8))
-addEventListener('mousedown',()=>play?(v=-8):reset())
+addEventListener('keydown',e=>{if(e.code==='Space')v=-8;});
+addEventListener('mousedown',()=>{playing?v=-8:reset();});
+function loop(){update();draw();requestAnimationFrame(loop);}
 reset();loop();
 </script>
-<p><a href="../index.html">← Back home</a></p>
+<p style="margin-top:1rem"><a href="../index.html">← Back home</a></p>
 </body>
 </html>
