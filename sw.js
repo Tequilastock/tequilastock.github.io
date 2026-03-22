@@ -1,6 +1,6 @@
 const CACHE = 'customsoftware-v1';
 const ASSETS = [
-  '/',
+  '/offline.html',
   '/index.html',
   '/thank-you.html',
   '/games/flappy.html',
