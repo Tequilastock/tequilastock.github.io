@@ -45,6 +45,9 @@
   .navwrap{max-width:1080px;margin:0 auto;padding:.6rem 5%;display:flex;justify-content:space-between;align-items:center}
   .logo{font-weight:700;color:var(--txt);text-decoration:none}
   .cta.small{padding:.4rem 1.2rem;background:var(--accent);color:#fff;border-radius:28px;font-size:.9rem;font-weight:600;text-decoration:none}
+  /* back-to-top button */
+  #topBtn{position:fixed;bottom:30px;right:24px;font-size:1.3rem;width:48px;height:48px;border:none;border-radius:50%;background:#007aff;color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s}
+  #topBtn.show{opacity:1;pointer-events:auto}
 </style></head><body>
   <nav id="topnav">
     <div class="navwrap">
@@ -281,5 +284,13 @@ modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('a
         if(el){e.preventDefault();el.scrollIntoView({behavior:smooth});}
       });
     });
+  </script>
+  <button id="topBtn" aria-label="Back to top">⇧</button>
+  <script>
+    const topBtn=document.getElementById(topBtn);
+    window.addEventListener(scroll,()=>{
+      topBtn.classList.toggle(show,window.scrollY>600);
+    });
+    topBtn.onclick=()=>window.scrollTo({top:0,behavior:smooth});
   </script>
 </body></html>
