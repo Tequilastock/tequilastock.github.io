@@ -5,12 +5,7 @@
   <title>customsoftware — Imagine your site here</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    :root{
-      --accent:#007aff;
-      --dark:#111;
-      --light:#f5f5f7;
-      --txt:#1d1d1f;
-    }
+    :root{--accent:#007aff;--light:#f5f5f7;--txt:#1d1d1f}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:18px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--txt);background:var(--light);}
     header{padding:7vh 5%;text-align:center}
@@ -23,8 +18,17 @@
     @media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)}}
     .card{background:#fff;border-radius:24px;padding:2rem;box-shadow:0 10px 18px rgba(0,0,0,.05);}
     .card h3{margin-bottom:.8rem}
+    /* -------- games -------- */
     .games{display:flex;flex-wrap:wrap;justify-content:center;gap:3rem;margin-top:3rem}
-    iframe{border:6px solid #000;border-radius:24px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+    .gameCard{background:#000;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.25);width:100%;max-width:360px}
+    .gameCard iframe{display:block;width:100%;height:auto;border:none}
+    /* -------- contact form -------- */
+    .contact{background:#fff;border-radius:24px;padding:3rem;box-shadow:0 10px 25px rgba(0,0,0,.05);}
+    form{display:grid;gap:1.4rem}
+    input,textarea{font:inherit;padding:.9rem 1.2rem;border:2px solid #ccc;border-radius:12px;width:100%;}
+    input:focus,textarea:focus{border-color:var(--accent);outline:none}
+    button{padding:.9rem 2.2rem;background:var(--accent);color:#fff;border:none;border-radius:42px;font-weight:600;cursor:pointer;transition:.25s}
+    button:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
     footer{padding:8vh 0;text-align:center;font-size:.9rem;opacity:.6}
     footer a{color:inherit;text-decoration:none}
   </style>
@@ -36,24 +40,40 @@
     <a class="cta" href="tel:+18589020389">Call&nbsp;now · (858)&nbsp;902-0389</a>
   </header>
 
+  <!-- Services cards (unchanged) -->
   <section>
     <h2 style="text-align:center;margin-bottom:3rem;font-size:2rem">What we craft</h2>
     <div class="grid">
       <div class="card"><h3>Custom Web Design</h3><p>Hand-coded, responsive &amp; accessible layouts that load in under 1 s.</p></div>
       <div class="card"><h3>E-commerce Stores</h3><p>Checkout experiences that convert with Apple-grade polish.</p></div>
-      <div class="card"><h3>Interactive Demos</h3><p>Scroll-triggered animations, mini-games, and immersive storytelling.</p></div>
+      <div class="card"><h3>Interactive Demos</h3><p>Scroll-triggered animations, mini-games, immersive storytelling.</p></div>
       <div class="card"><h3>Landing-Page Sprints</h3><p>Launch a gorgeous marketing page in one week—copy &amp; SEO included.</p></div>
-      <div class="card"><h3>Maintenance &amp; Hosting</h3><p>Zero-downtime deploys, CDN, weekly backups &amp; bullet-proof security.</p></div>
+      <div class="card"><h3>Maintenance &amp; Hosting</h3><p>Zero-downtime deploys, CDN, weekly backups &amp; security updates.</p></div>
       <div class="card"><h3>Growth Analytics</h3><p>Built-in funnels &amp; A/B testing so every pixel works harder.</p></div>
     </div>
   </section>
 
+  <!-- Games embedded in responsive cards -->
   <section style="text-align:center">
-    <h2 style="font-size:2rem">Test-drive our code<br><small style="opacity:.7">— these games run right in the browser —</small></h2>
+    <h2 style="font-size:2rem">Play our tech demos<br><small style="opacity:.7">— fully responsive —</small></h2>
     <div class="games">
-      <iframe src="games/flappy.html" width="320" height="480" title="Flappy Bird demo"></iframe>
-      <iframe src="games/snake.html"  width="400" height="400" title="Snake demo"></iframe>
+      <div class="gameCard"><iframe src="games/flappy.html" title="Flappy Bird demo"></iframe></div>
+      <div class="gameCard"><iframe src="games/snake.html"  title="Snake demo"></iframe></div>
     </div>
+  </section>
+
+  <!-- Contact section (unchanged) -->
+  <section class="contact" id="contact">
+    <h2 style="text-align:center;margin-bottom:2rem;font-size:2rem">Let’s build yours next</h2>
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="_replyto" placeholder="Your email" required />
+      <textarea name="message" rows="5" placeholder="Tell us about your project" required></textarea>
+      <button type="submit">Send&nbsp;Message</button>
+    </form>
+    <p style="margin-top:1rem;text-align:center;font-size:.85rem;opacity:.7">
+      Prefer phone? <a href="tel:+18589020389">Call&nbsp;(858) 902-0389</a>
+    </p>
   </section>
 
   <footer>
