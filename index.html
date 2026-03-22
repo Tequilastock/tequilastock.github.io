@@ -48,6 +48,8 @@
   /* back-to-top button */
   #topBtn{position:fixed;bottom:30px;right:24px;font-size:1.3rem;width:48px;height:48px;border:none;border-radius:50%;background:#007aff;color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s}
   #topBtn.show{opacity:1;pointer-events:auto}
+  /* hero lazy background */
+  header.lazy-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
 </style></head><body>
   <nav id="topnav">
     <div class="navwrap">
@@ -292,5 +294,15 @@ modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('a
       topBtn.classList.toggle(show,window.scrollY>600);
     });
     topBtn.onclick=()=>window.scrollTo({top:0,behavior:smooth});
+  </script>
+  <script>
+    const hero=document.querySelector("header.lazy-bg");
+    if(hero){
+      const io=new IntersectionObserver(entries=>{
+        if(entries[0].isIntersecting){
+          hero.style.backgroundImage=`url(${hero.dataset.src})`;io.disconnect();
+        }
+      });io.observe(hero);
+    }
   </script>
 </body></html>
