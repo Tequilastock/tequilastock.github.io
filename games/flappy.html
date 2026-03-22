@@ -13,17 +13,16 @@
 </head>
 <body>
 <canvas id="c"></canvas>
-<p id="msg">Tap / click or press <kbd>Space</kbd></p>
+<p id="msg">Tap / click or press <kbd>Space</kbd> | <kbd>P</kbd> pause</p>
 <script>
-const W=320,H=480,c=document.getElementById('c');
-c.width=W;c.height=H;
+const W=320,H=480,c=document.getElementById('c');c.width=W;c.height=H;
 const ctx=c.getContext('2d'),g=.5,gap=120,pipeW=52,pipeGap=160;
-let y,v,score,pipes,playing;
+let y,v,score,pipes,playing,paused=false;
 function addPipe(x){pipes.push({x,h:50+Math.random()*250});}
 function reset(){
-  y=200;v=0;score=0;pipes=[];
+  y=200;v=0;score=0;pipes=[];paused=false;
   [0,1,2].forEach(i=>addPipe(i*pipeGap+400));
-  playing=true;document.getElementById('msg').textContent='Tap / click or press Space';
+  playing=true;document.getElementById('msg').textContent='Tap / click or press Space | P pause';
 }
 function draw(){
   ctx.clearRect(0,0,W,H);
@@ -33,14 +32,17 @@ function draw(){
   ctx.fillStyle='#fff';ctx.fillText(score,150,40);
 }
 function update(){
-  if(!playing)return;
+  if(!playing||paused)return;
   v+=g;y+=v;
   pipes.forEach(p=>p.x-=2);
   if(pipes[0].x<-pipeW){pipes.shift();addPipe(pipes.at(-1).x+pipeGap);score++;}
   const p=pipes[0],hitX=84>p.x&&60<p.x+pipeW,hitY=y<p.h||y+24>p.h+gap;
   if(y>H-24||hitX&&hitY){playing=false;document.getElementById('msg').textContent='Game over—click to restart';}
 }
-addEventListener('keydown',e=>{if(e.code==='Space')v=-8;});
+addEventListener('keydown',e=>{
+  if(e.code==='Space') v=-8;
+  if(e.key==='p'||e.key==='P') {paused=!paused;document.getElementById('msg').textContent=paused?'Paused — P to resume':'Tap / click or press Space | P pause';}
+});
 addEventListener('mousedown',()=>{playing?v=-8:reset();});
 function loop(){update();draw();requestAnimationFrame(loop);}
 reset();loop();

@@ -16,20 +16,21 @@
 <canvas id="cv" width="400" height="400"></canvas>
 <p id="score">Score 0</p>
 <button id="reset">Reset</button>
+<p style="font-size:.85rem;opacity:.7">Press <kbd>P</kbd> to pause / resume</p>
 <a href="../index.html">← Back home</a>
 
 <script>
-const cv=document.getElementById('cv'),ctx=cv.getContext('2d')
-const size=20,cells=cv.width/size
-let snake,dir,food,score,playing
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),size=20,cells=cv.width/size
+let snake,dir,food,score,playing,paused=false
+const scoreEl=document.getElementById('score')
 function rnd(){return Math.floor(Math.random()*cells)}
 function placeFood(){food=[rnd(),rnd()]}
 function reset(){
-  snake=[[10,10]];dir=[1,0];score=0;playing=true
-  placeFood();document.getElementById('score').textContent='Score 0'
+  snake=[[10,10]];dir=[1,0];score=0;playing=true;paused=false
+  placeFood();scoreEl.textContent='Score 0'
 }
 function step(){
-  if(!playing)return
+  if(!playing||paused)return
   const head=[snake[0][0]+dir[0],snake[0][1]+dir[1]]
   if(head[0]<0||head[1]<0||head[0]>=cells||head[1]>=cells||snake.some(s=>s[0]===head[0]&&s[1]===head[1])){playing=false;return}
   snake.unshift(head)
@@ -43,13 +44,13 @@ function draw(){
 }
 function loop(){step();draw();setTimeout(loop,100)}
 addEventListener('keydown',e=>{
-  if(e.key==='ArrowUp'   && dir[1]!==1) dir=[0,-1]
+  if(e.key==='ArrowUp'   && dir[1]!==1 )dir=[0,-1]
   if(e.key==='ArrowDown' && dir[1]!==-1)dir=[0,1]
-  if(e.key==='ArrowLeft' && dir[0]!==1) dir=[-1,0]
+  if(e.key==='ArrowLeft' && dir[0]!==1 )dir=[-1,0]
   if(e.key==='ArrowRight'&& dir[0]!==-1)dir=[1,0]
+  if(e.key==='p'||e.key==='P'){paused=!paused}
 })
 document.getElementById('reset').onclick=reset
-const scoreEl=document.getElementById('score')
 reset();loop()
 </script>
 </body>
