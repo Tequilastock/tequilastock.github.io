@@ -1,41 +1,34 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Snake – customsoftware demo</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body{margin:0;display:flex;flex-direction:column;align-items:center;background:#222;color:#fff;font:17px monospace}
-    canvas{background:#000;margin-top:1.8rem;width:100%;max-width:400px;height:auto}
-    button{margin-top:1rem;padding:.6rem 1.6rem;border:none;border-radius:12px;background:#007aff;color:#fff;font-weight:600;cursor:pointer}
-    a{color:#0f0;text-decoration:none;margin-top:1.2rem}
-  </style>
-</head>
-<body>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><title>Snake – customsoftware demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{margin:0;display:flex;flex-direction:column;align-items:center;background:#222;color:#fff;font:17px monospace}
+canvas{background:#000;margin-top:1.4rem;width:100%;max-width:400px;height:auto}
+button{margin-top:.8rem;padding:.6rem 1.4rem;border:none;border-radius:12px;background:#007aff;color:#fff;font-weight:600;cursor:pointer}
+a{color:#0f0;text-decoration:none;margin-top:1rem}
+</style></head><body>
 <h1>Snake</h1>
 <canvas id="cv" width="400" height="400"></canvas>
-<p id="score">Score 0</p>
-<button id="reset">Reset</button>
-<p style="font-size:.85rem;opacity:.7">Press <kbd>P</kbd> to pause / resume</p>
-<a href="../index.html">← Back home</a>
-
+<p id="score">Score 0 | Best 0</p><button id="reset">Reset</button>
+<p style="font-size:.85rem;opacity:.7">Arrows move · P pause</p>
+<a href="../index.html">← Back</a>
 <script>
 const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),size=20,cells=cv.width/size
-let snake,dir,food,score,playing,paused=false
+let snake,dir,food,score,playing,paused=false,high=+(localStorage.snakeHigh||0)
 const scoreEl=document.getElementById('score')
 function rnd(){return Math.floor(Math.random()*cells)}
 function placeFood(){food=[rnd(),rnd()]}
+function updateScore(){scoreEl.textContent=`Score ${score} | Best ${high}`}
 function reset(){
-  snake=[[10,10]];dir=[1,0];score=0;playing=true;paused=false
-  placeFood();scoreEl.textContent='Score 0'
+  snake=[[10,10]];dir=[1,0];score=0;playing=true;paused=false;placeFood();updateScore()
 }
 function step(){
   if(!playing||paused)return
   const head=[snake[0][0]+dir[0],snake[0][1]+dir[1]]
-  if(head[0]<0||head[1]<0||head[0]>=cells||head[1]>=cells||snake.some(s=>s[0]===head[0]&&s[1]===head[1])){playing=false;return}
+  if(head[0]<0||head[1]<0||head[0]>=cells||head[1]>=cells||snake.some(s=>s[0]===head[0]&&s[1]===head[1])){playing=false;
+    if(score>high){high=score;localStorage.snakeHigh=high}updateScore();return}
   snake.unshift(head)
-  if(head[0]===food[0]&&head[1]===food[1]){score++;scoreEl.textContent='Score '+score;placeFood()}
-  else snake.pop()
+  if(head[0]===food[0]&&head[1]===food[1]){score++;updateScore();placeFood()}else snake.pop()
 }
 function draw(){
   ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height)
@@ -44,14 +37,13 @@ function draw(){
 }
 function loop(){step();draw();setTimeout(loop,100)}
 addEventListener('keydown',e=>{
-  if(e.key==='ArrowUp'   && dir[1]!==1 )dir=[0,-1]
-  if(e.key==='ArrowDown' && dir[1]!==-1)dir=[0,1]
-  if(e.key==='ArrowLeft' && dir[0]!==1 )dir=[-1,0]
-  if(e.key==='ArrowRight'&& dir[0]!==-1)dir=[1,0]
-  if(e.key==='p'||e.key==='P'){paused=!paused}
+  if(e.key==='ArrowUp'&&dir[1]!==1)dir=[0,-1]
+  if(e.key==='ArrowDown'&&dir[1]!==-1)dir=[0,1]
+  if(e.key==='ArrowLeft'&&dir[0]!==1)dir=[-1,0]
+  if(e.key==='ArrowRight'&&dir[0]!==-1)dir=[1,0]
+  if(e.key==='p'||e.key==='P')paused=!paused
 })
 document.getElementById('reset').onclick=reset
 reset();loop()
 </script>
-</body>
-</html>
+</body></html>
