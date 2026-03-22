@@ -114,7 +114,7 @@ document.querySelectorAll('.fsBtn').forEach(btn=>{
     e.stopPropagation();
     const card=e.currentTarget.closest('.gameCard');
     modalFrame.src=card.dataset.src;
-    modal.classList.add('active');
+    location.hash="#games";modal.classList.add('active');
   });
 });
 document.getElementById('close').onclick=()=>{
