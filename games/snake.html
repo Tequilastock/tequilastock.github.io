@@ -6,43 +6,44 @@ body{margin:0;display:flex;flex-direction:column;align-items:center;background:#
 canvas{background:#000;margin-top:1.4rem;width:100%;max-width:400px;height:auto}
 button{margin-top:.8rem;padding:.6rem 1.4rem;border:none;border-radius:12px;background:#007aff;color:#fff;font-weight:600;cursor:pointer}
 a{color:#0f0;text-decoration:none;margin-top:1rem}
+#snd{position:fixed;top:12px;left:12px;background:#0006;color:#fff;border:none;border-radius:8px;padding:.3rem .6rem;cursor:pointer}
 </style></head><body>
-<h1>Snake</h1>
-<canvas id="cv" width="400" height="400"></canvas>
+<button id="snd" aria-label="toggle sound">🔈</button>
+<h1>Snake</h1><canvas id="cv" width="400" height="400"></canvas>
 <p id="score">Score 0 | Best 0</p><button id="reset">Reset</button>
-<p style="font-size:.85rem;opacity:.7">Arrows move · P pause</p>
-<a href="../index.html">← Back</a>
+<p style="font-size:.85rem;opacity:.7">Arrows move · P pause</p><a href="../index.html">← Back</a>
 <script>
+/* audio */
+let audioCtx,on=!JSON.parse(localStorage.snakeSound||'true');function ping(){
+  if(!on)return;audioCtx||(audioCtx=new(window.AudioContext||window.webkitAudioContext)());
+  const osc=audioCtx.createOscillator(),g=audioCtx.createGain();osc.frequency.value=660;
+  osc.connect(g).connect(audioCtx.destination);g.gain.setValueAtTime(.3,audioCtx.currentTime);
+  osc.start();osc.stop(audioCtx.currentTime+.12);}
+const btn=document.getElementById('snd');btn.onclick=()=>{on=!on;btn.textContent=on?'🔈':'🔇';localStorage.snakeSound=on};
+/* game */
 const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),size=20,cells=cv.width/size
 let snake,dir,food,score,playing,paused=false,high=+(localStorage.snakeHigh||0)
 const scoreEl=document.getElementById('score')
 function rnd(){return Math.floor(Math.random()*cells)}
 function placeFood(){food=[rnd(),rnd()]}
 function updateScore(){scoreEl.textContent=`Score ${score} | Best ${high}`}
-function reset(){
-  snake=[[10,10]];dir=[1,0];score=0;playing=true;paused=false;placeFood();updateScore()
-}
+function reset(){snake=[[10,10]];dir=[1,0];score=0;playing=true;paused=false;placeFood();updateScore()}
 function step(){
-  if(!playing||paused)return
-  const head=[snake[0][0]+dir[0],snake[0][1]+dir[1]]
-  if(head[0]<0||head[1]<0||head[0]>=cells||head[1]>=cells||snake.some(s=>s[0]===head[0]&&s[1]===head[1])){playing=false;
-    if(score>high){high=score;localStorage.snakeHigh=high}updateScore();return}
-  snake.unshift(head)
-  if(head[0]===food[0]&&head[1]===food[1]){score++;updateScore();placeFood()}else snake.pop()
-}
+  if(!playing||paused)return;const head=[snake[0][0]+dir[0],snake[0][1]+dir[1]]
+  if(head[0]<0||head[1]<0||head[0]>=cells||head[1]>=cells||snake.some(s=>s[0]===head[0]&&s[1]===head[1])){
+    playing=false;if(score>high){high=score;localStorage.snakeHigh=high}updateScore();return}
+  snake.unshift(head);if(head[0]===food[0]&&head[1]===food[1]){score++;updateScore();placeFood();ping()}else snake.pop()}
 function draw(){
   ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height)
   ctx.fillStyle='#0f0';snake.forEach(([x,y])=>ctx.fillRect(x*size,y*size,size-2,size-2))
-  ctx.fillStyle='#f00';ctx.fillRect(food[0]*size,food[1]*size,size-2,size-2)
-}
+  ctx.fillStyle='#f00';ctx.fillRect(food[0]*size,food[1]*size,size-2,size-2)}
 function loop(){step();draw();setTimeout(loop,100)}
 addEventListener('keydown',e=>{
   if(e.key==='ArrowUp'&&dir[1]!==1)dir=[0,-1]
   if(e.key==='ArrowDown'&&dir[1]!==-1)dir=[0,1]
   if(e.key==='ArrowLeft'&&dir[0]!==1)dir=[-1,0]
   if(e.key==='ArrowRight'&&dir[0]!==-1)dir=[1,0]
-  if(e.key==='p'||e.key==='P')paused=!paused
-})
+  if(e.key==='p'||e.key==='P')paused=!paused})
 document.getElementById('reset').onclick=reset
 reset();loop()
 </script>
