@@ -64,7 +64,7 @@ footer{padding:8vh 0;text-align:center;font-size:.9rem;opacity:.6}footer a{color
 </div></section>
 
 <!-- Games -->
-<section style="text-align:center"><h2 style="font-size:2rem">Play our tech demos<br><small style="opacity:.7">— double-click ⛶ for full screen —</small></h2>
+<section id="games" style="text-align:center"><h2 style="font-size:2rem">Play our tech demos<br><small style="opacity:.7">— double-click ⛶ for full screen —</small></h2>
 <div class="games">
   <div class="gameCard" data-src="games/flappy.html"
        data-tip="Flappy Bird – tap/click or Space to flap, P pause">
@@ -121,5 +121,13 @@ document.getElementById('close').onclick=()=>{
   modal.classList.remove('active');modalFrame.src='';
 };
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('active');});
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded",()=>{
+    if(location.hash==="#games"){
+      const el=document.getElementById("games");
+      el&&el.scrollIntoView({behavior:"smooth"});
+    }
+  });
 </script>
 </body></html>
