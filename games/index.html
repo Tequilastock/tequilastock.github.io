@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="customsoftware builds pixel-perfect, high-converting websites — complete with interactive demos like Flappy Bird, Snake, Tetris and 2048. Call (858) 902-0389.">
   <script type="application/ld+json">{
-      "":"https://schema.org",
-      "":"Organization",
+      "@context":"https://schema.org",
+      "@type":"Organization",
       "name":"customsoftware",
       "url":"https://tequilastock.github.io/",
       "telephone":"+1-858-902-0389",
@@ -22,18 +22,18 @@ header{padding:6vh 5%;text-align:center}header h1{font-size:2.4rem;margin-bottom
 .grid{display:flex;flex-wrap:wrap;gap:3rem;justify-content:center;padding:0 5% 10vh}
 .card{background:#000;border-radius:24px;width:100%;max-width:360px;box-shadow:0 10px 25px rgba(0,0,0,.25);overflow:hidden;position:relative}
 .card iframe{display:block;width:100%;height:auto;border:none}
-.card h3{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:#000a;color:#fff;padding:.25rem .8rem;border-radius:12px;font-size:.9rem}
-nav a{color:var(--accent);text-decoration:none}
+.card h2{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:#000a;color:#fff;padding:.25rem .8rem;border-radius:12px;font-size:.9rem;margin:0}
+nav a{color:#0066cc;text-decoration:none}
 </style></head><body>
 <header>
   <h1>Interactive Tech Demos</h1>
-  <p><nav><a href="../index.html">← Back to main site</a></nav></p>
+  <nav><a href="../index.html">← Back to main site</a></nav>
 </header>
 <div class="grid">
-  <div class="card"><iframe loading="lazy" src="flappy.html?v=1"" title="Flappy Bird"></iframe><h3>Flappy Bird</h3></div>
-  <div class="card"><iframe loading="lazy" src="snake.html?v=1""  title="Snake"></iframe><h3>Snake</h3></div>
-  <div class="card"><iframe loading="lazy" src="tetris.html?v=1"" title="Tetris"></iframe><h3>Tetris</h3></div>
-  <div class="card"><iframe loading="lazy" src="2048.html?v=1" title="2048"></iframe><h3>2048</h3></div>
+  <div class="card"><iframe loading="lazy" src="flappy.html?v=1" title="Flappy Bird"></iframe><h2>Flappy Bird</h2></div>
+  <div class="card"><iframe loading="lazy" src="snake.html?v=1" title="Snake"></iframe><h2>Snake</h2></div>
+  <div class="card"><iframe loading="lazy" src="tetris.html?v=1" title="Tetris"></iframe><h2>Tetris</h2></div>
+  <div class="card"><iframe loading="lazy" src="2048.html?v=1" title="2048"></iframe><h2>2048</h2></div>
 </div>
   <script>
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");

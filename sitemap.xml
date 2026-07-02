@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tequilastock.github.io/</loc><lastmod>2026-03-22</lastmod></url>
-  <url><loc>https://tequilastock.github.io/games/</loc><lastmod>2026-03-22</lastmod></url>
+  <url><loc>https://tequilastock.github.io/</loc><lastmod>2026-07-02</lastmod></url>
+  <url><loc>https://tequilastock.github.io/games/</loc><lastmod>2026-07-02</lastmod></url>
   <url><loc>https://tequilastock.github.io/games/flappy.html</loc><lastmod>2026-03-22</lastmod></url>
   <url><loc>https://tequilastock.github.io/games/snake.html</loc><lastmod>2026-03-22</lastmod></url>
   <url><loc>https://tequilastock.github.io/games/tetris.html</loc><lastmod>2026-03-22</lastmod></url>
+  <url><loc>https://tequilastock.github.io/games/2048.html</loc><lastmod>2026-07-02</lastmod></url>
 </urlset>
