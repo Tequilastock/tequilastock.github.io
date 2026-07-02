@@ -2,8 +2,10 @@
   "name": "customsoftware-site",
   "private": true,
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.13.0",
     "eslint": "^10.1.0",
+    "globals": "^17.7.0",
     "live-server": "^1.2.2",
     "prettier": "^3.8.1",
     "rimraf": "^5.0.10"
